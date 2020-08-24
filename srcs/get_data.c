@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 16:14:56 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/20 19:18:51 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/24 15:55:45 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ int		get_player_number(t_input *in)
 	pl_num = ft_atoi(ptr + 1);
 	free(temp);
 	if (pl_num != 1 && pl_num != 2)
-	{
 		printf("Invalid player number.\n");
-		return (-1);
-	}
 	else
 	{
-		if (pl_num == 1)
+		if (pl_num == 1 && (in->op_c = 'X'))
 			in->pl_c = 'O';
-		else
+		else if (pl_num == 2 && (in->op_c = 'O'))
 			in->pl_c = 'X';
 	}
 	return (0);
@@ -39,6 +36,8 @@ int		get_player_number(t_input *in)
 
 void	init_struct(t_input *in)
 {
+	in->lft_trim = 0;
+	in->top_trim = 0;
 	in->mrow = 0;
 	in->mcol = 0;
 	in->prow = 0;
