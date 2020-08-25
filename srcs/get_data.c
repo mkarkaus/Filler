@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 16:14:56 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/24 15:55:45 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/25 16:58:08 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	init_struct(t_input *in)
 {
 	in->lft_trim = 0;
 	in->top_trim = 0;
+	in->y_ans = 0;
+	in->x_ans = 0;
 	in->mrow = 0;
 	in->mcol = 0;
 	in->prow = 0;
@@ -99,11 +101,4 @@ void	get_data(t_input *in)
 	}
 	get_dimensions(in, 'p');
 	in->pc = get_arrays(in->prow);
-	// for (int k = 0; in->map[k]; k++)
-	// 	printf("%s\n", in->map[k]);
-	// for (int k = 0; in->pc[k]; k++)
-	// 	printf("%s\n", in->pc[k]);
-	
-	// printf("¤¤ map dimensions: %d %d ¤¤\n", in->mrow, in->mcol);
-	// printf("¤¤ piece dimensions: %d %d ¤¤\n", in->prow, in->pcol);
 }
