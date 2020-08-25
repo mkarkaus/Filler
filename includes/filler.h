@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 15:42:58 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/24 16:39:15 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:33:24 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_input {
 	int				pcol;
 }			t_input;
 
+char	**trim_token(t_input *in);
 void	put_piece(t_input *in);
 void	get_data(t_input *in);
 int		get_player_number(t_input *in);
