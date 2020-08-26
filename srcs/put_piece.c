@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 13:37:33 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/25 17:04:43 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/26 17:39:02 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		is_valid(t_input *in, int y, int x)
 		px = -1;
 		while (++px < in->pcol)
 		{
-			if (in->pc[py][px] == '*' && (in->heat[y + py][x + px] == '0' || \
-			(plc_found == 1 && is_my_char(in->map[y + py][x + px], in->pl_c))))
+			if (in->pc[py][px] == '*' && (in->heat[y + py][x + px] == 0 || \
+			(plc_found == 1 && is_my_char(in->map[y + py][x + px], in->pl_c) == 1)))
 				return (0);
 			else if (in->pc[py][px] == '*')
 			{
@@ -46,6 +46,13 @@ int		is_valid(t_input *in, int y, int x)
 	}
 	if (plc_found == 0)
 		return (0);
+	// ft_putnbr_fd(ret, fd);
+	// write(fd, " ", 1);
+	// ft_putnbr_fd(y, fd);
+	// write(fd, " ", 1);
+	// ft_putnbr_fd(x, fd);
+	// write(fd, "\n", 1);
+	// printf("ret = %d, y= %d x= %d\n", ret, y, x);
 	return (ret);
 }
 
@@ -65,7 +72,8 @@ void	find_optimal_move(t_input *in)
 		while (++x < in->mcol - in->pcol + 1)
 		{
 			temp = is_valid(in, y, x);
-			if (temp != 0 && temp < ans_sum)
+			if (temp != 0 && ((in->op_lower == 1 && temp <= ans_sum) || \
+				(in->op_lower == 0 && temp < ans_sum)))
 			{
 				ans_sum = temp;
 				in->y_ans = y;
@@ -73,12 +81,17 @@ void	find_optimal_move(t_input *in)
 			}
 		}
 	}
+	// printf("SAUNASORSA\n");
 	in->y_ans -= in->top_trim;
 	in->x_ans -= in->lft_trim;
 }
 
 void	put_piece(t_input *in)
 {
+	int		fd;
+
+	fd = open("foo.txt", O_RDWR | O_APPEND);
 	in->pc = trim_token(in);
 	find_optimal_move(in);
+	write(fd, "taalla\n", 7);
 }

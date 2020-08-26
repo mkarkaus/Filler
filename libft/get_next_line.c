@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 13:03:14 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/06/25 20:56:30 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:27:44 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,16 @@ ssize_t		ft_makeline(char **line, char **tab, const int fd)
 	return (1);
 }
 
-int			get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line, int end)
 {
 	ssize_t		ret;
 	static char	*tab[MAX_FD];
 	char		*temp;
 	char		buf[BUFF_SIZE + 1];
+	int			stop;
 
 	ret = 0;
+	stop = 0;
 	if (fd < 0 || fd > MAX_FD || !line || BUFF_SIZE < 1)
 		return (-1);
 	if (tab[fd] == NULL && !(tab[fd] = ft_strnew(0)))
@@ -59,7 +61,7 @@ int			get_next_line(const int fd, char **line)
 		if (!(temp = ft_strjoin(tab[fd], buf, 1)))
 			return (-1);
 		tab[fd] = temp;
-		if (ft_strchr(tab[fd], '\n') != NULL)
+		if (ft_strchr(tab[fd], '\n') || (end > 0 && ++stop == end))
 			break ;
 	}
 	if (ret < 0)

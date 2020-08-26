@@ -6,13 +6,13 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:45:08 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/24 16:39:58 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/26 17:24:03 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-void    ft_print_intarr(int **arr, int maxr, int maxc)
+void    ft_print_intarr(int **arr, int maxr, int maxc, FILE *fd)
 {
     int i;
     int    j;
@@ -23,10 +23,10 @@ void    ft_print_intarr(int **arr, int maxr, int maxc)
         j = 0;
         while(j < maxc)
         {
-            printf("%3i", arr[i][j]);
+            fprintf(fd, "%3i", arr[i][j]);
             j++;
         }
-        printf("\n");
+        fprintf(fd, "\n");
     }
 }
 
@@ -113,11 +113,13 @@ void	start_heatmap(t_input *in, int **i_arr)
 }
 
 int		**create_heatmap(t_input *in)
-
 {
 	int		**i_arr;
 	int		i;
+	FILE	*fd;//REMOVE
 
+	fd = fopen("foo.txt", "w+");//REMOVE
+	// write(fd, "\n", 1);
 	i = -1;
 	i_arr = (int **)malloc((in->mrow + 1) * sizeof(int *));
 	while (++i < in->mrow)
@@ -125,6 +127,7 @@ int		**create_heatmap(t_input *in)
 	start_heatmap(in, i_arr);
 	while (empty_spots_left(i_arr, in->mrow, in->mcol))
 		fill_heatmap(in, i_arr, in->mrow, in->mcol);
-	// ft_print_intarr(i_arr, in->mrow, in->mcol);//REMOVE
+	ft_print_intarr(i_arr, in->mrow, in->mcol, fd);//REMOVE
+	fclose(fd);
 	return (i_arr);
 }

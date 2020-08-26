@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 15:42:58 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/25 17:17:50 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/26 17:21:37 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_input {
 	char			**pc;
 	unsigned char	pl_c;
 	unsigned char	op_c;
+	int				op_lower;
 	int				lft_trim;
 	int				top_trim;
 	int				mrow;
@@ -32,6 +33,9 @@ typedef struct s_input {
 	int				x_ans;
 }			t_input;
 
+int		opponent_islower(t_input *in);
+void	init_struct(t_input *in);
+void    ft_print_intarr(int **arr, int maxr, int maxc, FILE *fd);//REMOVE
 void	free_arrays(void **ptr, int rows);
 char	**trim_token(t_input *in);
 void	put_piece(t_input *in);

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 16:14:56 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/25 16:58:08 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/26 20:38:07 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		get_player_number(t_input *in)
 	char	*ptr;
 	int		pl_num;
 
-	get_next_line(0, &temp);
+	get_next_line(0, &temp, 0);
 	ptr = ft_strchr(temp, 'p');
 	pl_num = ft_atoi(ptr + 1);
 	free(temp);
@@ -34,24 +34,49 @@ int		get_player_number(t_input *in)
 	return (0);
 }
 
-void	init_struct(t_input *in)
+int		opponent_islower(t_input *in)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
+	int		y;
+	int		x;
+
+	y = -1;
+	while (++y < in->mrow)
+	{
+		x = 0;
+		while (x < in->mcol && in->map[y][x] == '.')
+			x++;
+		if (in->map[y][x] == in->pl_c)
+		{
+			in->op_lower = 1;
+			return (0);
+		}
+		else if (in->map[y][x] == in->op_c || in->map[y][x] == in->op_c + 32)
+		{
+			in->op_lower = 0;
+			return (0);
+		}
+	}
+	return (0);
 }
 
 void	get_dimensions(t_input *in, char c)
 {
 	char	*temp;
 	char	*ptr;
+	// int		fd;//REMOVE
 
-	get_next_line(0, &temp);
+	// fd = open("foo.txt", O_RDWR | O_APPEND);//REMOVE
+	// write(fd, "\n", 1);
+	temp = NULL;
+	while (ft_strncmp(temp, "Plateau", 6) != 0 && ft_strncmp(temp, "Piece", 4) != 0)
+	{
+		get_next_line(0, &temp, 0);
+		// write(fd, temp, ft_strlen(temp));
+		if (ft_strncmp(temp, "Plateau", 6) == 0 || ft_strncmp(temp, "Piece", 4) == 0)
+			break;
+		else
+			ft_strdel(&temp);
+	}
 	ptr = ft_strchr(temp, ' ');
 	if (c == 'm')
 		in->mrow = ft_atoi(ptr + 1);
@@ -64,25 +89,32 @@ void	get_dimensions(t_input *in, char c)
 	{
 		in->mcol = ft_atoi(ptr + 1);
 		free(temp);
-		get_next_line(0, &temp);
+		get_next_line(0, &temp, 0);
 	}
 	else
 		in->pcol = ft_atoi(ptr + 1);
 	free(temp);
 }
 
-char	**get_arrays(int row)
+char	**get_arrays(int row, int col)
 {
 	char	**arr;
 	int		i;
+	// int		fd;
 
+	// fd = open("foo.txt", O_RDWR | O_APPEND);
 	i = 0;
 	arr = (char **)malloc((row + 1) * sizeof(char *));
 	while (i < row)
 	{
-		get_next_line(0, &arr[i]);
+		// ft_putnbr_fd(col, fd);
+		if (i == row - 1)
+			get_next_line(0, &arr[i], col);
+		else
+			get_next_line(0, &arr[i], 0);
 		i++;
 	}
+	// write(fd, "taalla", 6);
 	return (arr);
 }
 
@@ -93,12 +125,12 @@ void	get_data(t_input *in)
 	i = 0;
 	init_struct(in);
 	get_dimensions(in, 'm');
-	in->map = get_arrays(in->mrow);
+	in->map = get_arrays(in->mrow, in->mcol);
 	while (i < in->mrow)
 	{
 		in->map[i] = ft_strcut(in->map[i], 4, 0, 1);
 		i++;
 	}
 	get_dimensions(in, 'p');
-	in->pc = get_arrays(in->prow);
+	in->pc = get_arrays(in->prow, in->pcol);
 }

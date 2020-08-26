@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/19 16:56:01 by mkarkaus          #+#    #+#              #
-#    Updated: 2020/08/25 17:05:22 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/08/26 12:02:35 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = mkarkaus.filler
 
 SRCS_PATH = ./srcs/
 SRCS_FILES = main.c get_data.c create_heatmap.c put_piece.c trim_piece.c \
-free_arrays.c
+clear_struct.c
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_FILES))
 
 LIB = ./libft/libft.a
