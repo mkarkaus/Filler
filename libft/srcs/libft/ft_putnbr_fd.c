@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/10/21 11:54:44 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+void	ft_putnbr_fd(int n, int fd)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
-
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
-
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	if (n == -2147483648)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		n = 147483648;
+	}
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
+	}
+	else if (n >= 0 && n <= 9)
+		ft_putchar_fd(n + '0', fd);
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
 }

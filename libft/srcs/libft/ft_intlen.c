@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/11/13 11:35:39 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:40:05 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+int		ft_intlen(int n)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
+	int	len;
 
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
-
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (n == -2147483648)
+		return (11);
+	else if (n < 0)
+	{
+		n = -n;
+		len++;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
 }

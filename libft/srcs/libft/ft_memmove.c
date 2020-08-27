@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/10/30 11:29:31 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
-
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
+	unsigned char	*dest2;
+	unsigned char	*src2;
+	size_t			i;
 
 	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	if (!dest && !src)
+		return (NULL);
+	dest2 = (unsigned char *)dest;
+	src2 = (unsigned char *)src;
+	if (src2 < dest2)
+		while ((int)(--n) >= 0)
+			*(dest2 + n) = *(src2 + n);
+	else
+		while (++i < n)
+			*(dest2 + i) = *(src2 + i);
+	return (dest);
 }

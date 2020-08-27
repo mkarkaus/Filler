@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/10/30 11:30:13 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
+	char		*dest2;
+	const char	*src2;
 
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
-
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	dest2 = (char *)dest;
+	src2 = (const char *)src;
+	if (!n || dest == src)
+		return (dest);
+	while (n--)
+		*dest2++ = *src2++;
+	return (dest);
 }

@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/10/30 11:36:48 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
+	unsigned int	i;
+	unsigned int	j;
 
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
-
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	i = 0;
+	while (dest[i] && i < size)
+		i++;
+	j = 0;
+	while (src[j] && (i + j + 1) < size)
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	if (i < size)
+		dest[i + j] = '\0';
+	return (i + ft_strlen(src));
 }

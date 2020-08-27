@@ -6,54 +6,50 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:45:08 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/26 17:24:03 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:15:22 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-void    ft_print_intarr(int **arr, int maxr, int maxc, FILE *fd)
+void	ft_pr_chararr(char **arr, int maxr, int fd)
 {
-    int i;
-    int    j;
+	int		i;
 
-    i = -1;
-    while(++i < maxr)
-    {
-        j = 0;
-        while(j < maxc)
-        {
-            fprintf(fd, "%3i", arr[i][j]);
-            j++;
-        }
-        fprintf(fd, "\n");
-    }
+	i = -1;
+	while (++i < maxr)
+		ft_printf("{fd}%s\n", fd, arr[i]);
 }
 
-int		check_surr(t_input *in, int **i_arr, int y, int x)
+void	ft_pr_intarr(int **arr, int maxr, int maxc, int fd)
 {
-	int		nbr;
-	int		temp;
+	int		i;
+	int		j;
 
-	nbr = -1;
-	temp = -1;
-	(y > 0 && x > 0 && (temp = i_arr[y - 1][x - 1]) != -1 && \
-			(nbr == -1 || temp < nbr)) ? nbr = temp: 0;
-	(y > 0 && (temp = i_arr[y - 1][x]) != -1 && (nbr == -1 || temp < nbr)) ?\
-		nbr = temp: 0;
-	(y > 0 && x < in->mcol - 1 && (temp = i_arr[y - 1][x + 1]) != -1 && \
-			(nbr == -1 || temp < nbr)) ? nbr = temp: 0;
-	(x < in->mcol - 1 && (temp = i_arr[y][x + 1]) != -1 && \
-			(nbr == -1 || temp < nbr)) ? nbr = temp: 0;
-	(y < in->mrow - 1 && x < in->mcol - 1 && (temp = i_arr[y + 1][x + 1]) \
-			!= -1 && (nbr == -1 || temp < nbr)) ? nbr = temp: 0;
-	(y < in->mrow - 1 && (temp = i_arr[y + 1][x]) != -1 && \
-			(nbr == -1 || temp < nbr)) ? nbr = temp: 0;
-	(y < in->mrow - 1 && x > 0 && (temp = i_arr[y + 1][x - 1]) != -1 && \
-			(nbr == -1 || temp < nbr)) ? nbr = temp: 0;
-	(x > 0 && (temp = i_arr[y][x - 1]) != -1 && (nbr == -1 || temp < nbr)) ? \
-		nbr = temp: 0;
-	return (nbr);
+	i = -1;
+	while (++i < maxr)
+	{
+		j = 0;
+		while (j < maxc)
+		{
+			ft_printf("{fd}%3i", fd, arr[i][j]);
+			j++;
+		}
+		ft_printf("{fd}\n", fd);
+	}
+}
+
+int		check_surr(t_input *in, int y, int x, int num)
+{
+	return ((y > 0 && x > 0 && in->heat[y - 1][x - 1] == num - 1) \
+	|| (y > 0 && in->heat[y - 1][x] == num - 1) \
+	|| (y > 0 && x < in->mcol - 1 && in->heat[y - 1][x + 1] == num - 1) \
+	|| (x < in->mcol - 1 && in->heat[y][x + 1] == num - 1) \
+	|| (y < in->mrow - 1 && x < in->mcol - 1 && \
+		in->heat[y + 1][x + 1] == num - 1) \
+	|| (y < in->mrow - 1 && in->heat[y + 1][x] == num - 1) \
+	|| (y < in->mrow - 1 && x > 0 && in->heat[y + 1][x - 1] == num - 1) \
+	|| (x > 0 && in->heat[y][x - 1] == num - 1));
 }
 
 int		empty_spots_left(int **i_arr, int row_max, int col_max)
@@ -74,26 +70,24 @@ int		empty_spots_left(int **i_arr, int row_max, int col_max)
 	return (0);
 }
 
-void	fill_heatmap(t_input *in, int **i_arr, int row_max, int col_max)
+void	fill_heatmap(t_input *in, int num)
 {
 	int		x;
 	int		y;
-	int		nbr;
 
 	y = -1;
-	nbr = -1;
-	while (++y < row_max)
+	while (++y < in->mrow)
 	{
 		x = -1;
-		while (++x < col_max)
+		while (++x < in->mcol)
 		{
-			if (i_arr[y][x] == -1 && (nbr = check_surr(in, i_arr, y, x)) != -1)
-				i_arr[y][x] = nbr + 1;
+			if (in->heat[y][x] == -1 && check_surr(in, y, x, num))
+				in->heat[y][x] = num;
 		}
 	}
 }
 
-void	start_heatmap(t_input *in, int **i_arr)
+void	start_heatmap(t_input *in)
 {
 	int		x;
 	int		y;
@@ -105,29 +99,27 @@ void	start_heatmap(t_input *in, int **i_arr)
 		while (++x < in->mcol)
 		{
 			if (in->map[y][x] == in->op_c || in->map[y][x] == in->op_c + 32)
-				i_arr[y][x] = 0;
+				in->heat[y][x] = 0;
 			else
-				i_arr[y][x] = -1;
+				in->heat[y][x] = -1;
 		}
 	}
 }
 
-int		**create_heatmap(t_input *in)
+void	create_heatmap(t_input *in)
 {
-	int		**i_arr;
+	int		num;
 	int		i;
-	FILE	*fd;//REMOVE
 
-	fd = fopen("foo.txt", "w+");//REMOVE
-	// write(fd, "\n", 1);
+	num = 1;
 	i = -1;
-	i_arr = (int **)malloc((in->mrow + 1) * sizeof(int *));
+	in->heat = (int **)malloc((in->mrow + 1) * sizeof(int *));
 	while (++i < in->mrow)
-		i_arr[i] = (int *)malloc((in->mcol + 1) * sizeof(int));
-	start_heatmap(in, i_arr);
-	while (empty_spots_left(i_arr, in->mrow, in->mcol))
-		fill_heatmap(in, i_arr, in->mrow, in->mcol);
-	ft_print_intarr(i_arr, in->mrow, in->mcol, fd);//REMOVE
-	fclose(fd);
-	return (i_arr);
+		in->heat[i] = (int *)malloc((in->mcol + 1) * sizeof(int));
+	start_heatmap(in);
+	while (empty_spots_left(in->heat, in->mrow, in->mcol))
+	{
+		fill_heatmap(in, num);
+		num++;
+	}
 }

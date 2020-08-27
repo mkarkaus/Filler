@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/10/24 14:46:51 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include <stdlib.h>
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+char	*ft_strnew(size_t size)
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
+	char	*new;
 
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
-
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	if (!(new = (char *)malloc((size + 1) * sizeof(char))))
+		return (0);
+	new[size] = '\0';
+	while (size--)
+		new[size] = '\0';
+	return (new);
 }

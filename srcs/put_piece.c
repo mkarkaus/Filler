@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 13:37:33 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/26 17:39:02 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:37:09 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,10 @@ int		is_valid(t_input *in, int y, int x)
 	}
 	if (plc_found == 0)
 		return (0);
-	// ft_putnbr_fd(ret, fd);
-	// write(fd, " ", 1);
-	// ft_putnbr_fd(y, fd);
-	// write(fd, " ", 1);
-	// ft_putnbr_fd(x, fd);
-	// write(fd, "\n", 1);
-	// printf("ret = %d, y= %d x= %d\n", ret, y, x);
 	return (ret);
 }
 
-void	find_optimal_move(t_input *in)
+int		find_optimal_move(t_input *in)
 {
 	int		y;
 	int		x;
@@ -73,25 +66,25 @@ void	find_optimal_move(t_input *in)
 		{
 			temp = is_valid(in, y, x);
 			if (temp != 0 && ((in->op_lower == 1 && temp <= ans_sum) || \
-				(in->op_lower == 0 && temp < ans_sum)))
+				(in->op_lower == 0 && temp < ans_sum)) && (ans_sum = temp))
 			{
-				ans_sum = temp;
 				in->y_ans = y;
 				in->x_ans = x;
 			}
 		}
 	}
-	// printf("SAUNASORSA\n");
-	in->y_ans -= in->top_trim;
-	in->x_ans -= in->lft_trim;
+	if (ans_sum == 2147483646)
+		return (0);
+	return (ans_sum);
 }
 
-void	put_piece(t_input *in)
+int		put_piece(t_input *in)
 {
-	int		fd;
+	int		ans_sum;
 
-	fd = open("foo.txt", O_RDWR | O_APPEND);
 	in->pc = trim_token(in);
-	find_optimal_move(in);
-	write(fd, "taalla\n", 7);
+	ans_sum = find_optimal_move(in);
+	in->y_ans -= in->top_trim;
+	in->x_ans -= in->lft_trim;
+	return (ans_sum);
 }

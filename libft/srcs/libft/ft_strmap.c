@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/10/24 11:45:11 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include <stdlib.h>
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
-
-void	free_arrays(void **ptr, int rows)
-{
+	char	*fresh;
 	int		i;
 
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	i = 0;
+	if (!s || !(fresh = (char *)malloc((ft_strlen(s) + 1) * sizeof(char))))
+		return (0);
+	while (s[i])
+	{
+		fresh[i] = f(s[i]);
+		i++;
+	}
+	fresh[i] = '\0';
+	return (fresh);
 }

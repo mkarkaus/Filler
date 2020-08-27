@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/19 16:56:01 by mkarkaus          #+#    #+#              #
-#    Updated: 2020/08/26 12:02:35 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/08/27 13:15:46 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,11 @@ re: fclean all
 	@echo "Files recompiled."
 
 exre:
+	@gcc -o $(NAME) $(SRCS) $(LIB)
+	@rm -rf *.o
+	@echo "Executable '$(NAME)' created successfully."
+
+exref:
 	@gcc -o $(NAME) $(FLAGS) $(SRCS) $(LIB)
 	@rm -rf *.o
 	@echo "Executable '$(NAME)' created successfully."

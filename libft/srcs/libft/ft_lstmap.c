@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2019/11/06 20:08:11 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:41:26 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include <stdlib.h>
+#include "../../includes/libft.h"
 
-void	init_struct(t_input *in)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
+	t_list	*new;
+	t_list	*templist;
 
-void	free_arrays(void **ptr, int rows)
-{
-	int		i;
-
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	if (!lst)
+		return (0);
+	if (!(templist = f(lst)))
+		return (NULL);
+	new = templist;
+	while (lst->next)
+	{
+		lst = lst->next;
+		if (!(templist->next = f(lst)))
+		{
+			free(templist->next);
+			return (0);
+		}
+		templist = templist->next;
+	}
+	return (new);
 }

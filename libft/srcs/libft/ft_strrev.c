@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_struct.c                                     :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/26 12:02:01 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 11:43:28 by mkarkaus         ###   ########.fr       */
+/*   Created: 2020/07/03 12:45:07 by mkarkaus          #+#    #+#             */
+/*   Updated: 2020/08/27 17:44:31 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "../../includes/libft.h"
+#include <stdlib.h>
 
-void	init_struct(t_input *in)
-{
-	in->lft_trim = 0;
-	in->top_trim = 0;
-	in->y_ans = 0;
-	in->x_ans = 0;
-	in->mrow = 0;
-	in->mcol = 0;
-	in->prow = 0;
-	in->pcol = 0;
-}
-
-void	free_arrays(void **ptr, int rows)
+char	*ft_strrev(char *str, int free_str)
 {
 	int		i;
+	int		j;
+	char	*res;
 
-	i = -1;
-	while (++i < rows)
-		free(ptr[i]);
-	free(ptr);
+	j = 0;
+	i = ft_strlen(str) - 1;
+	if (!(res = (char *)malloc((i + 2) * sizeof(char))))
+		return (0);
+	while (i >= 0)
+	{
+		res[j] = str[i];
+		i--;
+		j++;
+	}
+	res[j] = '\0';
+	if (free_str)
+		free(str);
+	return (res);
 }

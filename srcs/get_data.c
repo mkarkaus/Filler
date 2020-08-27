@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 16:14:56 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/26 20:38:07 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:50:20 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,13 @@ void	get_dimensions(t_input *in, char c)
 {
 	char	*temp;
 	char	*ptr;
-	// int		fd;//REMOVE
 
-	// fd = open("foo.txt", O_RDWR | O_APPEND);//REMOVE
-	// write(fd, "\n", 1);
 	temp = NULL;
 	while (ft_strncmp(temp, "Plateau", 6) != 0 && ft_strncmp(temp, "Piece", 4) != 0)
 	{
 		get_next_line(0, &temp, 0);
-		// write(fd, temp, ft_strlen(temp));
 		if (ft_strncmp(temp, "Plateau", 6) == 0 || ft_strncmp(temp, "Piece", 4) == 0)
-			break;
+			break ;
 		else
 			ft_strdel(&temp);
 	}
@@ -96,25 +92,18 @@ void	get_dimensions(t_input *in, char c)
 	free(temp);
 }
 
-char	**get_arrays(int row, int col)
+char	**get_arrays(int row)
 {
 	char	**arr;
 	int		i;
-	// int		fd;
 
-	// fd = open("foo.txt", O_RDWR | O_APPEND);
 	i = 0;
 	arr = (char **)malloc((row + 1) * sizeof(char *));
 	while (i < row)
 	{
-		// ft_putnbr_fd(col, fd);
-		if (i == row - 1)
-			get_next_line(0, &arr[i], col);
-		else
-			get_next_line(0, &arr[i], 0);
+		get_next_line(0, &arr[i], 0);
 		i++;
 	}
-	// write(fd, "taalla", 6);
 	return (arr);
 }
 
@@ -125,12 +114,12 @@ void	get_data(t_input *in)
 	i = 0;
 	init_struct(in);
 	get_dimensions(in, 'm');
-	in->map = get_arrays(in->mrow, in->mcol);
+	in->map = get_arrays(in->mrow);
 	while (i < in->mrow)
 	{
 		in->map[i] = ft_strcut(in->map[i], 4, 0, 1);
 		i++;
 	}
 	get_dimensions(in, 'p');
-	in->pc = get_arrays(in->prow, in->pcol);
+	in->pc = get_arrays(in->prow);
 }
