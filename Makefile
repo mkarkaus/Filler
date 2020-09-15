@@ -6,7 +6,7 @@
 #    By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/19 16:56:01 by mkarkaus          #+#    #+#              #
-#    Updated: 2020/08/27 13:15:46 by mkarkaus         ###   ########.fr        #
+#    Updated: 2020/09/14 14:48:52 by mkarkaus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ $(NAME):
 clean:
 	@make clean --no-print-directory -C libft/
 	@rm -rf *.o
-	@echo "Object files removed."
+	@echo "Object files for 'mkarkaus.filler' REMOVED."
 
 fclean: clean
 	@make fclean --no-print-directory -C libft/

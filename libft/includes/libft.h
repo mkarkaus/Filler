@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:57:46 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 18:07:14 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/02 11:37:28 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,8 @@ char			*ft_itoa_llong(long long n);
 int				ft_intlen_llong(long long n);
 char			*ft_itoa_ptr(int *n);
 int				ft_onlydigits(char *str);
+void			ft_free_arrays(void **ptr, int rows);
+void			ft_pr_intarr(int **arr, int maxr, int maxc, int fd);
+void			ft_pr_chararr(char **arr, int maxr, int fd);
 
 #endif

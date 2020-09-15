@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 22:07:07 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 17:52:28 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/02 10:43:29 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	float_fraction(t_flag *f, long double *nbr, int *i)
 	__int128_t	temp;
 	__int128_t	chunk;
 
-	k = 0;
 	j = 0;
 	chunk = 1;
 	while (j++ <= f->pres && f->res[(*i)] != '-')
 	{
 		if (chunk == 1)
 		{
+			k = 0;
 			while (k++ < 2)
 				chunk *= 1000000000000000000;
 			temp = *nbr * chunk;

@@ -6,7 +6,7 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 16:14:56 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 16:50:20 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/14 15:27:45 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		get_player_number(t_input *in)
 	pl_num = ft_atoi(ptr + 1);
 	free(temp);
 	if (pl_num != 1 && pl_num != 2)
-		printf("Invalid player number.\n");
+		ft_printf("{fd}Invalid player number.\n", 2);
 	else
 	{
 		if (pl_num == 1 && (in->op_c = 'X'))
@@ -107,7 +107,7 @@ char	**get_arrays(int row)
 	return (arr);
 }
 
-void	get_data(t_input *in)
+int		get_data(t_input *in)
 {
 	int		i;
 
@@ -122,4 +122,9 @@ void	get_data(t_input *in)
 	}
 	get_dimensions(in, 'p');
 	in->pc = get_arrays(in->prow);
+	if (!validate_width(in->map, in->mrow, in->mcol))
+		return (-1);
+	if (!validate_width(in->pc, in->prow, in->pcol))
+		return (-2);
+	return (0);
 }

@@ -6,38 +6,11 @@
 /*   By: mkarkaus <mkarkaus@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:45:08 by mkarkaus          #+#    #+#             */
-/*   Updated: 2020/08/27 18:15:22 by mkarkaus         ###   ########.fr       */
+/*   Updated: 2020/09/08 12:16:00 by mkarkaus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
-
-void	ft_pr_chararr(char **arr, int maxr, int fd)
-{
-	int		i;
-
-	i = -1;
-	while (++i < maxr)
-		ft_printf("{fd}%s\n", fd, arr[i]);
-}
-
-void	ft_pr_intarr(int **arr, int maxr, int maxc, int fd)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < maxr)
-	{
-		j = 0;
-		while (j < maxc)
-		{
-			ft_printf("{fd}%3i", fd, arr[i][j]);
-			j++;
-		}
-		ft_printf("{fd}\n", fd);
-	}
-}
 
 int		check_surr(t_input *in, int y, int x, int num)
 {
