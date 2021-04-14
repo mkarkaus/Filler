@@ -84,7 +84,9 @@ Player is a executable that is passed to the vm as a argument. There are couple 
 - The Piece can't go over the dimensions of the board (the dots (`.`) of the piece can go over bounds)
 
 #### Algorithm
-My players algorithm starts with creating a heatmap of the map it has been passed. In case the map looks like the one you saw at the end of 'Map'-section and my player is player 1 (with uppercase letter 'O') the heatmap looks like this:
+My players algorithm starts with creating a heatmap of the map it has been passed. The heatmap is created by creating similarly sized map but this time with integers. Then in places of the opponents blocks we place `0`. Next we set every integer that hasn't yet been set surrounding the zeroes as `1` and after that every integer that hasn't been set surrounding the ones as `2` and so on.
+
+In case the map looks like the one you saw at the end of 'Map'-section and my player is player 1 (with uppercase letter 'O') the heatmap would look like this:
 
 ```
  13 12 12 11 10 10 10 10 10 10 10 10 10 10 10 10 10
