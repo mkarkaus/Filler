@@ -109,3 +109,5 @@ In case the map looks like the one you saw at the end of 'Map'-section and my pl
 As you can see the numbers increase the further we go from enemy blocks. My algorithm tries to get next to the other player's pieces and corner it by placing all the pieces right beside opponent's. After creating the heatmap the rest of the task is relatively easy since we can just follow the numbers in the direction of the smaller ones.
 
 The algorithm tries to fit the piece in every valid coordinate and adds the numbers of the heatmap which are caught under the piece. This sum is the number that determines which coordinate is the best to put the piece on. In our case smaller the better.
+
+After my program has decided the coordinate based on the sum of the numbers it returns only the coordinates to the vm after which my player's turn has been concluded.
